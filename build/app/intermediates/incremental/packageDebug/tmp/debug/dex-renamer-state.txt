@@ -1,4 +1,0 @@
-#Thu Oct 17 14:48:18 UTC 2019
-base.0=/home/nubaf/ssd/FlutterProjects/quiz_app/build/app/intermediates/transforms/dexMerger/debug/0
-path.0=classes.dex
-renamed.0=classes.dex

@@ -28,8 +28,9 @@ class Quiz {
 
   Question prevQtn() {
     _index--;
-    if(_index >= questions.length)
+    if(_index >= questions.length || _index<=0){
       return null;
+    }
     return questions[_index-1];
   }
 }

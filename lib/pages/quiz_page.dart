@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/pages/score_page.dart';
 import 'package:quiz_app/utils/question.dart';
+import 'package:flash/flash.dart';
 
 class QuizTest extends StatefulWidget {
   @override
@@ -78,9 +79,22 @@ class _QuizTestState extends State<QuizTest> {
                 onPressed: (){
                   currentQuestion = quiz.nextQtn();
                   if(currentQuestion == null){
-                    Scaffold.of(context).showSnackBar(new SnackBar(
-                      content: new Text("No more questions"),
-                    ));
+                    showFlash(
+                      context: context,
+                      duration: Duration(seconds: 2),
+                      builder: (context, controller) {
+                        return Flash(
+                          backgroundColor: Color(0xff212121),
+                          controller: controller,
+                          style: FlashStyle.grounded,
+                          boxShadows: kElevationToShadow[4],
+                          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+                          child: FlashBar(
+                            message: Text('No questions available', style: TextStyle(color: Colors.white),),
+                          ),
+                        );
+                      },
+                    );
                     currentQuestion = quiz.prevQtn();
                   }
                   this.setState((){});
@@ -96,6 +110,25 @@ class _QuizTestState extends State<QuizTest> {
               child: RaisedButton(
                 onPressed: (){
                   currentQuestion = quiz.prevQtn();
+                  if(currentQuestion == null){
+                    showFlash(
+                      context: context,
+                      duration: Duration(seconds: 2),
+                      builder: (context, controller) {
+                        return Flash(
+                          backgroundColor: Color(0xff212121),
+                          controller: controller,
+                          style: FlashStyle.grounded,
+                          boxShadows: kElevationToShadow[4],
+                          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+                          child: FlashBar(
+                            message: Text('Already at the start', style: TextStyle(color: Colors.white),),
+                          ),
+                        );
+                      },
+                    );
+                    currentQuestion = quiz.nextQtn();
+                  }
                   this.setState((){});
                 },
                 child: Text("Prev"),
